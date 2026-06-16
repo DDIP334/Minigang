@@ -1,20 +1,62 @@
 [gd_scene format=3 uid="uid://cb28hry66m104"]
 
-[ext_resource type="Texture2D" uid="uid://dqkv80n3fmwe8" path="res://assets/Electrical.PNG" id="1_7yhko"]
+[ext_resource type="Texture2D" uid="uid://i21aoqb7nh3m" path="res://assets/Map.png" id="1_7yhko"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1n30v"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35kre"]
+
+[sub_resource type="GDScript" id="GDScript_1n30v"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 300.0
+
+func _physics_process(delta):
+	var direction = Vector2.ZERO
+	
+	if Input.is_action_pressed(\"ui_right\"):
+		direction.x += 1
+	if Input.is_action_pressed(\"ui_left\"):
+		direction.x -= 1
+	if Input.is_action_pressed(\"ui_down\"):
+		direction.y += 1
+	if Input.is_action_pressed(\"ui_up\"):
+		direction.y -= 1
+	
+	if direction != Vector2.ZERO:
+		direction = direction.normalized()
+	
+	velocity = direction * SPEED
+	move_and_slide()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n30v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7yhko"]
 
 [node name="Node2D" type="Node2D" unique_id=1709466047]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=238828630]
-
-[node name="TileMap" type="TileMap" parent="." unique_id=940481692]
-format = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1357832628]
-sprite_frames = SubResource("SpriteFrames_1n30v")
-
-[node name="Electrical" type="Sprite2D" parent="." unique_id=1829235255]
-position = Vector2(-11.000015, 321)
-scale = Vector2(2.5625, 2.059774)
+[node name="Main" type="Sprite2D" parent="." unique_id=1083044925]
+position = Vector2(-45.999985, -121.00002)
+scale = Vector2(4.101563, 3.6865234)
 texture = ExtResource("1_7yhko")
+
+[node name="Walls" type="StaticBody2D" parent="Main" unique_id=1726524587]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Walls" unique_id=1594994082]
+shape = SubResource("RectangleShape2D_35kre")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Main/Walls" unique_id=1140516481]
+position = Vector2(8.887828, 0.848557)
+scale = Vector2(1.0425913, 1.0016145)
+polygon = PackedVector2Array(-180.66284, -334.4615, -177.24951, -400.106, -94.841896, -481.4835, -87.2838, -474.9733, -170.66666, -393.5958, -169.69142, -334.4615)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069]
+script = SubResource("GDScript_1n30v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1785094148]
+shape = SubResource("CapsuleShape2D_1n30v")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=184909975]
+position = Vector2(-38, -1302)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=81746524]
+sprite_frames = SubResource("SpriteFrames_7yhko")
