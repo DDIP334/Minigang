@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cb28hry66m104"]
+
+[ext_resource type="Texture2D" uid="uid://dqkv80n3fmwe8" path="res://assets/Electrical.PNG" id="1_7yhko"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1n30v"]
+
+[node name="Node2D" type="Node2D" unique_id=1709466047]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=238828630]
+
+[node name="TileMap" type="TileMap" parent="." unique_id=940481692]
+format = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1357832628]
+sprite_frames = SubResource("SpriteFrames_1n30v")
+
+[node name="Electrical" type="Sprite2D" parent="." unique_id=1829235255]
+position = Vector2(-11.000015, 321)
+scale = Vector2(2.5625, 2.059774)
+texture = ExtResource("1_7yhko")
