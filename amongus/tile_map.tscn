@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cb28hry66m104"]
 
 [ext_resource type="Texture2D" uid="uid://c322qdfuyectb" path="res://assets/Map.png" id="1_7yhko"]
+[ext_resource type="AudioStream" uid="uid://br5crlsj7yqo7" path="res://assets/audiopapkin-spaceship-hum-low-frequency-296518.mp3" id="2_xftlc"]
 [ext_resource type="Texture2D" uid="uid://ctydncqojriw0" path="res://assets/Character.png" id="3_03na7"]
 [ext_resource type="Script" uid="uid://bh2qd28ixx3ku" path="res://assets/controller.gd" id="3_35kre"]
+[ext_resource type="AudioStream" uid="uid://oj6mx4bcn1us" path="res://assets/517fd7b7-2c37-4495-81d9-f3e9617faee4.mp3" id="4_03na7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n30v"]
 
@@ -249,6 +251,11 @@ position = Vector2(40, -50.999996)
 scale = Vector2(4.101563, 3.6865234)
 texture = ExtResource("1_7yhko")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" unique_id=916696572]
+stream = ExtResource("2_xftlc")
+volume_db = -4.288
+autoplay = true
+
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069]
 script = ExtResource("3_35kre")
 
@@ -261,3 +268,7 @@ position = Vector2(-2, 4)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=669626173]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_8mkqx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1216921772]
+stream = ExtResource("4_03na7")
+volume_db = 16.178

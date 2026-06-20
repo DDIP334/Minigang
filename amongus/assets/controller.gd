@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 460.0
 
 @onready var sprite = $AnimatedSprite2D
+@onready var footsteps = $AudioStreamPlayer2D
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
@@ -19,8 +20,8 @@ func _physics_process(delta):
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
 
-		# Play animation when moving
-		if sprite.animation != "default" or !sprite.is_playing():
+		# Play animation
+		if !sprite.is_playing():
 			sprite.play("default")
 
 		# Face left/right
@@ -28,9 +29,15 @@ func _physics_process(delta):
 			sprite.flip_h = false
 		elif direction.x < 0:
 			sprite.flip_h = true
+
+		# Play walking sound
+		if !footsteps.playing:
+			footsteps.play()
+
 	else:
-		# Stop animation when idle
+		# Stop animation and sound when idle
 		sprite.stop()
+		footsteps.stop()
 
 	velocity = direction * SPEED
 	move_and_slide()
