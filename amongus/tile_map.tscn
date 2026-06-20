@@ -253,7 +253,7 @@ texture = ExtResource("1_7yhko")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" unique_id=916696572]
 stream = ExtResource("2_xftlc")
-volume_db = -4.288
+volume_db = -1.0
 autoplay = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069]
@@ -272,3 +272,4 @@ sprite_frames = SubResource("SpriteFrames_8mkqx")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1216921772]
 stream = ExtResource("4_03na7")
 volume_db = 16.178
+pitch_scale = 0.87
