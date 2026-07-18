@@ -4,7 +4,7 @@ const SPEED = 460.0
 
 @onready var sprite = $AnimatedSprite2D
 @onready var footsteps = $AudioStreamPlayer2D
-
+var current_room = ""
 func _physics_process(delta):
 	var direction = Vector2.ZERO
 
@@ -41,3 +41,7 @@ func _physics_process(delta):
 
 	velocity = direction * SPEED
 	move_and_slide()
+
+
+func _on_communication_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

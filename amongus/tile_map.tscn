@@ -5,6 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://ctydncqojriw0" path="res://assets/Character.png" id="3_03na7"]
 [ext_resource type="Script" uid="uid://bh2qd28ixx3ku" path="res://assets/controller.gd" id="3_35kre"]
 [ext_resource type="AudioStream" uid="uid://oj6mx4bcn1us" path="res://assets/517fd7b7-2c37-4495-81d9-f3e9617faee4.mp3" id="4_03na7"]
+[ext_resource type="Script" uid="uid://cbepo0u6otxam" path="res://electrical.gd" id="6_anah5"]
+[ext_resource type="Script" uid="uid://urp65151e68" path="res://storage.gd" id="7_qtlnl"]
+[ext_resource type="Script" uid="uid://dw1mn72knatvs" path="res://communication.gd" id="8_2cfip"]
+[ext_resource type="Script" uid="uid://bq2c2bgu6ffud" path="res://cafeteria.gd" id="9_sqirv"]
+[ext_resource type="Script" uid="uid://boftwe2588wyy" path="res://engine.gd" id="10_c81vo"]
+[ext_resource type="Script" uid="uid://c0myl3wxllxel" path="res://admin.gd" id="11_i6cpi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n30v"]
 
@@ -123,10 +129,28 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l1e5b")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 9.6
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
+size = Vector2(809, 749)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jb22b"]
+size = Vector2(727.5, 733)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpafw"]
+size = Vector2(695, 596)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c81vo"]
+size = Vector2(1417, 1320)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbwoy"]
+size = Vector2(821, 781)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0w6o8"]
+size = Vector2(767, 1012)
 
 [node name="Node2D" type="Node2D" unique_id=1709466047]
 
@@ -247,7 +271,7 @@ scale = Vector2(1.3403605, 1.1318902)
 polygon = PackedVector2Array(467.87042, 286.44876, 468.60187, 262.0355, 486.39996, 259.3229, 488.10663, 293.77274)
 
 [node name="Main" type="Sprite2D" parent="." unique_id=1083044925]
-position = Vector2(40, -50.999996)
+position = Vector2(-3.9999962, -6.9999924)
 scale = Vector2(4.101563, 3.6865234)
 texture = ExtResource("1_7yhko")
 
@@ -273,3 +297,60 @@ sprite_frames = SubResource("SpriteFrames_8mkqx")
 stream = ExtResource("4_03na7")
 volume_db = 16.178
 pitch_scale = 0.87
+
+[node name="Rooms" type="Node2D" parent="." unique_id=733124816]
+
+[node name="Electrical" type="Area2D" parent="Rooms" unique_id=1952671140]
+script = ExtResource("6_anah5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Electrical" unique_id=266821282]
+position = Vector2(1673.5, -1112.5)
+shape = SubResource("RectangleShape2D_rr80c")
+debug_color = Color(0.64329004, 0.51939887, 0.14746085, 0.41960785)
+
+[node name="Storage" type="Area2D" parent="Rooms" unique_id=1079560125]
+script = ExtResource("7_qtlnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Storage" unique_id=358359166]
+position = Vector2(-157.25, 1308.5)
+shape = SubResource("RectangleShape2D_jb22b")
+debug_color = Color(0.31920174, 0.62132204, 0.20985153, 0.41960785)
+
+[node name="Communication" type="Area2D" parent="Rooms" unique_id=916693188]
+script = ExtResource("8_2cfip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Communication" unique_id=601729644]
+position = Vector2(-1008.5, 395)
+shape = SubResource("RectangleShape2D_dpafw")
+debug_color = Color(0.27588207, 0.6306, 0.12818658, 0.41960785)
+
+[node name="Cafeteria" type="Area2D" parent="Rooms" unique_id=592392910]
+script = ExtResource("9_sqirv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Cafeteria" unique_id=1770973587]
+position = Vector2(-10.5, -1134)
+shape = SubResource("RectangleShape2D_c81vo")
+debug_color = Color(0.1540713, 0.6282413, 0.4276861, 0.41960785)
+
+[node name="Engine" type="Area2D" parent="." unique_id=1572388218]
+script = ExtResource("10_c81vo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Engine" unique_id=1960378178]
+position = Vector2(-1783.5, -1133.5)
+shape = SubResource("RectangleShape2D_mbwoy")
+debug_color = Color(0.22487691, 0.6223328, 0.43049932, 0.41960785)
+
+[node name="Admin" type="Area2D" parent="." unique_id=1111806336]
+script = ExtResource("11_i6cpi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Admin" unique_id=88809805]
+position = Vector2(-2515.5, -175)
+shape = SubResource("RectangleShape2D_0w6o8")
+debug_color = Color(0.21582875, 0.62702733, 0.37109193, 0.41960785)
+
+[connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Communication" to="Rooms/Communication" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Cafeteria" to="Rooms/Cafeteria" method="_on_body_entered"]
+[connection signal="body_entered" from="Engine" to="Engine" method="_on_body_entered"]
+[connection signal="body_entered" from="Admin" to="Admin" method="_on_body_entered"]
