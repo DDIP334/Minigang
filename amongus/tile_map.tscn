@@ -32,6 +32,56 @@ func _physics_process(delta):
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7yhko"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7yhko"]
+load_path = "res://.godot/imported/6.jpeg-2b2655e6a327a970b77bc3c5253353c7.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1n30v"]
+load_path = "res://.godot/imported/1.jpeg-e02c14bae6857e1b5e203dc3798afe4b.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_35kre"]
+load_path = "res://.godot/imported/3.jpeg-e1c8bd36f628582f8b4899c61dbe0c72.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_03na7"]
+load_path = "res://.godot/imported/2.jpeg-93b8021c8911bbbf33950b91ca304fa0.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xftlc"]
+load_path = "res://.godot/imported/5.jpeg-f5d9ad6032c776e3d6e178eef01a5651.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_anah5"]
+load_path = "res://.godot/imported/4.jpeg-9c0fb3e578b0ebd46db53f3818a48265.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qtlnl"]
+load_path = "res://.godot/imported/7.jpeg-0a45db95e46fc7cd553e084113d2b58b.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k8jdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_7yhko")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_1n30v")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_35kre")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_03na7")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_xftlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_anah5")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_qtlnl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
 [node name="Node2D" type="Node2D" unique_id=1709466047]
 
 [node name="Main" type="Sprite2D" parent="." unique_id=1083044925]
@@ -53,6 +103,7 @@ polygon = PackedVector2Array(-180.66284, -334.4615, -177.24951, -400.106, -94.84
 script = SubResource("GDScript_1n30v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1785094148]
+position = Vector2(185, 98)
 shape = SubResource("CapsuleShape2D_1n30v")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=184909975]
@@ -60,3 +111,11 @@ position = Vector2(-38, -1302)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=81746524]
 sprite_frames = SubResource("SpriteFrames_7yhko")
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." unique_id=1429693758]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D2" unique_id=1579798609]
+position = Vector2(90, -523)
+scale = Vector2(0.67832166, 0.70689654)
+sprite_frames = SubResource("SpriteFrames_k8jdh")
+frame_progress = 0.47789177
