@@ -1,6 +1,16 @@
 extends Area2D
 
-func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		body.current_room = "Admin"
-		print("Entered Admin")
+@onready var ui = $"../../HUD/UI"
+@onready var game_manager = $"../../GameManager"
+
+func _on_body_entered(body):
+	if !body.is_in_group("Player"):
+		return
+
+	print("Player entered Admin")
+
+	var task = game_manager.get_current_task()
+
+	if task != null and task["room"] == "Adimn":
+		print("Showing task panel")
+		ui.show_task(task["name"])

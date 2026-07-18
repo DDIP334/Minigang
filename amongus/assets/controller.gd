@@ -45,3 +45,7 @@ func _physics_process(delta):
 
 func _on_communication_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
+
+
+func _on_observation_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

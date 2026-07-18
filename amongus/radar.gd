@@ -7,10 +7,10 @@ func _on_body_entered(body):
 	if !body.is_in_group("Player"):
 		return
 
-	print("Player entered Engine")
+	print("Player entered Security")
 
 	var task = game_manager.get_current_task()
 
-	if task != null and task["room"] == "Engine":
+	if task != null and task["room"] == "Security":
 		print("Showing task panel")
 		ui.show_task(task["name"])

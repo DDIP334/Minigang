@@ -11,6 +11,17 @@
 [ext_resource type="Script" uid="uid://bq2c2bgu6ffud" path="res://cafeteria.gd" id="9_sqirv"]
 [ext_resource type="Script" uid="uid://boftwe2588wyy" path="res://engine.gd" id="10_c81vo"]
 [ext_resource type="Script" uid="uid://c0myl3wxllxel" path="res://admin.gd" id="11_i6cpi"]
+[ext_resource type="Script" uid="uid://jv3ptwukpwks" path="res://radar.gd" id="12_47trr"]
+[ext_resource type="Script" uid="uid://d13i50umxh7xa" path="res://observation.gd" id="13_mvv3g"]
+[ext_resource type="Script" uid="uid://bocf7m7ijvi81" path="res://lower_engine.gd" id="14_mvv3g"]
+[ext_resource type="Script" uid="uid://cmnkwh1ke5lkg" path="res://upper_engine.gd" id="15_k8jdh"]
+[ext_resource type="Script" uid="uid://b5fnm7wr6eqco" path="res://game_manager.gd" id="16_gkke7"]
+[ext_resource type="Script" uid="uid://cb3cdl0md7r4m" path="res://hud.gd" id="17_4snpw"]
+[ext_resource type="Script" uid="uid://dunlpmdjho08t" path="res://ui.gd" id="18_l1e5b"]
+[ext_resource type="Texture2D" uid="uid://cvely1df1ec73" path="res://icon.svg" id="19_cxhyb"]
+[ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
+[ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
+[ext_resource type="Texture2D" uid="uid://brob0xhq5jron" path="res://assets/red.PNG" id="22_2sfib"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n30v"]
 
@@ -152,6 +163,32 @@ size = Vector2(821, 781)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0w6o8"]
 size = Vector2(767, 1012)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n6woj"]
+size = Vector2(681, 945)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjysh"]
+size = Vector2(810, 603)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxlt2"]
+size = Vector2(676, 731)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1kn7"]
+size = Vector2(795, 679)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxhyb"]
+bg_color = Color(0.101960786, 0.11372549, 0.14901961, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsnob"]
+bg_color = Color(0.2901961, 0.87058824, 0.5019608, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="Node2D" type="Node2D" unique_id=1709466047]
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
@@ -280,7 +317,7 @@ stream = ExtResource("2_xftlc")
 volume_db = -1.0
 autoplay = true
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069 groups=["Player"]]
 script = ExtResource("3_35kre")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1785094148]
@@ -308,6 +345,8 @@ position = Vector2(1673.5, -1112.5)
 shape = SubResource("RectangleShape2D_rr80c")
 debug_color = Color(0.64329004, 0.51939887, 0.14746085, 0.41960785)
 
+[node name="MapPoint" type="Marker2D" parent="Rooms/Electrical" unique_id=1323747571]
+
 [node name="Storage" type="Area2D" parent="Rooms" unique_id=1079560125]
 script = ExtResource("7_qtlnl")
 
@@ -315,6 +354,8 @@ script = ExtResource("7_qtlnl")
 position = Vector2(-157.25, 1308.5)
 shape = SubResource("RectangleShape2D_jb22b")
 debug_color = Color(0.31920174, 0.62132204, 0.20985153, 0.41960785)
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/Storage" unique_id=761203098]
 
 [node name="Communication" type="Area2D" parent="Rooms" unique_id=916693188]
 script = ExtResource("8_2cfip")
@@ -324,6 +365,8 @@ position = Vector2(-1008.5, 395)
 shape = SubResource("RectangleShape2D_dpafw")
 debug_color = Color(0.27588207, 0.6306, 0.12818658, 0.41960785)
 
+[node name="MapPoint" type="Marker2D" parent="Rooms/Communication" unique_id=580962036]
+
 [node name="Cafeteria" type="Area2D" parent="Rooms" unique_id=592392910]
 script = ExtResource("9_sqirv")
 
@@ -332,25 +375,179 @@ position = Vector2(-10.5, -1134)
 shape = SubResource("RectangleShape2D_c81vo")
 debug_color = Color(0.1540713, 0.6282413, 0.4276861, 0.41960785)
 
-[node name="Engine" type="Area2D" parent="." unique_id=1572388218]
+[node name="MapPoint" type="Marker2D" parent="Rooms/Cafeteria" unique_id=2088185716]
+
+[node name="Engine" type="Area2D" parent="Rooms" unique_id=1572388218]
 script = ExtResource("10_c81vo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Engine" unique_id=1960378178]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Engine" unique_id=1960378178]
 position = Vector2(-1783.5, -1133.5)
 shape = SubResource("RectangleShape2D_mbwoy")
 debug_color = Color(0.22487691, 0.6223328, 0.43049932, 0.41960785)
 
-[node name="Admin" type="Area2D" parent="." unique_id=1111806336]
+[node name="MapPoint" type="Marker2D" parent="Rooms/Engine" unique_id=459668526]
+
+[node name="Admin" type="Area2D" parent="Rooms" unique_id=1111806336]
 script = ExtResource("11_i6cpi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Admin" unique_id=88809805]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Admin" unique_id=88809805]
 position = Vector2(-2515.5, -175)
 shape = SubResource("RectangleShape2D_0w6o8")
 debug_color = Color(0.21582875, 0.62702733, 0.37109193, 0.41960785)
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/Admin" unique_id=1557360510]
+
+[node name="Security" type="Area2D" parent="Rooms" unique_id=628151944]
+script = ExtResource("12_47trr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Security" unique_id=69798928]
+position = Vector2(2444.5, -190.5)
+shape = SubResource("RectangleShape2D_n6woj")
+debug_color = Color(0.19550234, 0.63208073, 0.32738253, 0.41960785)
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/Security" unique_id=1971622294]
+
+[node name="Observation" type="Area2D" parent="Rooms" unique_id=444894131]
+script = ExtResource("13_mvv3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Observation" unique_id=1080821794]
+position = Vector2(714, 1419.5)
+shape = SubResource("RectangleShape2D_rjysh")
+debug_color = Color(0.17616525, 0.6338607, 0.3274128, 0.41960785)
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/Observation" unique_id=334744212]
+
+[node name="LowerEngine" type="Area2D" parent="Rooms" unique_id=836384631]
+script = ExtResource("14_mvv3g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/LowerEngine" unique_id=1279416665]
+position = Vector2(-1838, 800.5)
+shape = SubResource("RectangleShape2D_vxlt2")
+debug_color = Color(0.30577147, 0.622383, 0.23949996, 0.41960785)
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/LowerEngine" unique_id=579060291]
+
+[node name="UpperEngine" type="Area2D" parent="Rooms" unique_id=1117910764]
+script = ExtResource("15_k8jdh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/UpperEngine" unique_id=1395437542]
+position = Vector2(1656.5, 993.5)
+shape = SubResource("RectangleShape2D_q1kn7")
+
+[node name="MapPoint" type="Marker2D" parent="Rooms/UpperEngine" unique_id=2025957368]
+
+[node name="GameManager" type="Node" parent="." unique_id=569229339]
+script = ExtResource("16_gkke7")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=420314083]
+script = ExtResource("17_4snpw")
+
+[node name="UI" type="Control" parent="HUD" unique_id=104639955]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_l1e5b")
+
+[node name="Panel" type="PanelContainer" parent="HUD/UI" unique_id=702145079]
+layout_mode = 0
+offset_right = 188.0
+offset_bottom = 96.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/UI/Panel" unique_id=344280381]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/UI/Panel/MarginContainer" unique_id=1460930421]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HUD/UI/Panel/MarginContainer/VBoxContainer" unique_id=1508852347]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/UI/Panel/MarginContainer/VBoxContainer" unique_id=1064253690]
+custom_minimum_size = Vector2(160, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_cxhyb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jsnob")
+max_value = 3.0
+show_percentage = false
+
+[node name="ProgressText" type="Label" parent="HUD/UI/Panel/MarginContainer/VBoxContainer" unique_id=962059317]
+layout_mode = 2
+
+[node name="TaskListLabel" type="RichTextLabel" parent="HUD/UI/Panel/MarginContainer/VBoxContainer" unique_id=1064824751]
+custom_minimum_size = Vector2(250, 200)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="PromptPanel" type="PanelContainer" parent="HUD/UI" unique_id=657858628]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/UI/PromptPanel" unique_id=348457932]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/UI/PromptPanel/MarginContainer" unique_id=1479280268]
+layout_mode = 2
+
+[node name="TaskNameLabel" type="Label" parent="HUD/UI/PromptPanel/MarginContainer/VBoxContainer" unique_id=1394263514]
+layout_mode = 2
+
+[node name="DoTaskButton" type="Button" parent="HUD/UI/PromptPanel/MarginContainer/VBoxContainer" unique_id=92977124]
+layout_mode = 2
+text = "
+
+
+                                              Let's Do!
+"
+icon = ExtResource("19_cxhyb")
+
+[node name="MapUI" type="CanvasLayer" parent="." unique_id=598365247]
+script = ExtResource("20_jsnob")
+
+[node name="ColorRect" type="ColorRect" parent="MapUI" unique_id=840761592]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.006447723, 0.021125726, 0.019767245, 1)
+
+[node name="MiniMap" type="Node2D" parent="MapUI" unique_id=168675680]
+
+[node name="MapSprite" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1559751827]
+position = Vector2(575, 324)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_7yhko")
+
+[node name="Line2D" type="Line2D" parent="MapUI/MiniMap" unique_id=969087304]
+width = 6.0
+default_color = Color(0.83137256, 0.3019608, 0, 1)
+
+[node name="PlayerMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1821396918]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("21_g2lfc")
+
+[node name="TargetMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=915467833]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("22_2sfib")
 
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Communication" to="Rooms/Communication" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Cafeteria" to="Rooms/Cafeteria" method="_on_body_entered"]
-[connection signal="body_entered" from="Engine" to="Engine" method="_on_body_entered"]
-[connection signal="body_entered" from="Admin" to="Admin" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Engine" to="Rooms/Engine" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Admin" to="Rooms/Admin" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Security" to="Rooms/Security" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/Observation" to="Rooms/Observation" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/LowerEngine" to="Rooms/LowerEngine" method="_on_body_entered"]
+[connection signal="body_entered" from="Rooms/UpperEngine" to="Rooms/UpperEngine" method="_on_body_entered"]
+[connection signal="pressed" from="HUD/UI/PromptPanel/MarginContainer/VBoxContainer/DoTaskButton" to="HUD/UI" method="_on_do_task_button_pressed"]
