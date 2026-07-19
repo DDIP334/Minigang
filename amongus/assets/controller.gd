@@ -12,6 +12,7 @@ enum Role {
 }
 
 var role : Role = Role.CREWMATE
+var is_dead := false
 func _ready():
 	camera.enabled = is_multiplayer_authority()
 

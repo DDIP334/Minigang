@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://c1lkkqtd7xxqu" path="res://assets/Imposter.PNG" id="4_g2lfc"]
 [ext_resource type="Texture2D" uid="uid://cpltic62bds7d" path="res://assets/Crewmates.PNG" id="5_2sfib"]
 [ext_resource type="Script" uid="uid://cbepo0u6otxam" path="res://electrical.gd" id="6_anah5"]
+[ext_resource type="Texture2D" uid="uid://dpd2l7kkoxe8q" path="res://assets/Kill.PNG" id="6_m1afb"]
+[ext_resource type="Texture2D" uid="uid://q8e6dj1w44x3" path="res://assets/Victory.PNG" id="7_g5f3g"]
 [ext_resource type="Script" uid="uid://urp65151e68" path="res://storage.gd" id="7_qtlnl"]
 [ext_resource type="Script" uid="uid://dw1mn72knatvs" path="res://communication.gd" id="8_2cfip"]
+[ext_resource type="Texture2D" uid="uid://ctap6hfi0hiwf" path="res://assets/Defeat.PNG" id="8_i4cc3"]
 [ext_resource type="Script" uid="uid://bq2c2bgu6ffud" path="res://cafeteria.gd" id="9_sqirv"]
 [ext_resource type="Script" uid="uid://boftwe2588wyy" path="res://engine.gd" id="10_c81vo"]
 [ext_resource type="Script" uid="uid://c0myl3wxllxel" path="res://admin.gd" id="11_i6cpi"]
@@ -143,26 +146,6 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_g2lfc")
 
-[node name="KillVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1489035176]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MeetingVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1524825254]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VictoryVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1506374440]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="DefeatVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1248821424]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="KillButton" type="Button" parent="CanvasLayer/UI" unique_id=1702517989]
 visible = false
 z_index = 1
@@ -177,6 +160,63 @@ offset_top = -70.0
 offset_right = -20.0
 offset_bottom = -20.0
 text = "KILL"
+
+[node name="KillScreen" type="Control" parent="CanvasLayer/UI" unique_id=385859673]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/KillScreen" unique_id=732637265]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_m1afb")
+
+[node name="VictoryScreen" type="Control" parent="CanvasLayer/UI" unique_id=131157742]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/VictoryScreen" unique_id=633108668]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_g5f3g")
+
+[node name="DefeatScreen" type="Control" parent="CanvasLayer/UI" unique_id=1009315690]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/DefeatScreen" unique_id=691356100]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_i4cc3")
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
 position = Vector2(3.9999962, -3.9999695)
@@ -507,6 +547,10 @@ stream = ExtResource("22_g2lfc")
 
 [node name="KillSound" type="AudioStreamPlayer2D" parent="." unique_id=1096873190]
 stream = ExtResource("23_2sfib")
+
+[node name="VictorySound" type="AudioStreamPlayer2D" parent="." unique_id=689483370]
+
+[node name="DefeatSound" type="AudioStreamPlayer2D" parent="." unique_id=591339646]
 
 [connection signal="pressed" from="CanvasLayer/UI/KillButton" to="." method="_on_kill_button_pressed"]
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]

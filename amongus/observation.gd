@@ -4,17 +4,23 @@ extends Area2D
 @onready var game_manager = $"../../GameManager"
 
 func _on_body_entered(body):
+
 	if !body.is_in_group("Player"):
+		return
+
+	# Only the local player can open the task
+	if !body.is_multiplayer_authority():
+		return
+
+	# Impostor cannot perform tasks
+	if body.role == body.Role.IMPOSTOR:
+		print("Impostor cannot do tasks!")
 		return
 
 	print("Player entered Observation")
 
 	var task = game_manager.get_current_task()
 
-	print("Task = ", task)
-
-	if task != null:
-		print("Task room = ", task["room"])
-
-	# TEMPORARY TEST
-	ui.show_task("TEST TASK")
+	if task != null and task["room"] == "Observation":
+		print("Showing task panel")
+		ui.show_task(task["name"])

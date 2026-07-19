@@ -1,10 +1,16 @@
 extends Node2D
+const REQUIRED_PLAYERS := 2
 
+var game_started := false
 const PLAYER_SCENE := preload("res://Player.tscn")
 @onready var role_sound = $RoleSound
 @onready var kill_sound = $KillSound
+@onready var victory_sound = $VictorySound
+@onready var defeat_sound = $DefeatSound
 const ROLE = preload("res://assets/Role.mp3")
 const KILL_SOUND = preload("res://assets/Kill.mp3")
+const VICTORY_SOUND = preload("res://assets/Victory.mp3")
+const DEFEAT_SOUND = preload("res://assets/Defeat.mp3")
 @onready var players := $Players
 func show_role_popup(role:String):
 
@@ -35,6 +41,13 @@ func show_role_popup(role:String):
 	# Hide both after popup disappears
 	crew.hide()
 	imp.hide()
+func show_kill_screen():
+
+	$CanvasLayer/UI/KillScreen.show()
+
+	await get_tree().create_timer(6.0).timeout
+
+	$CanvasLayer/UI/KillScreen.hide()
 func start_game():
 
 	if !multiplayer.is_server():
@@ -94,7 +107,9 @@ func _ready():
 	$CanvasLayer/UI/RolePopup.hide()
 	$CanvasLayer/UI/RolePopup/TextureRect.hide()
 	$CanvasLayer/UI/RolePopup/TextureRect2.hide()
-
+	$CanvasLayer/UI/KillScreen.hide()
+	$CanvasLayer/UI/VictoryScreen.hide()
+	$CanvasLayer/UI/DefeatScreen.hide()
 	$CanvasLayer/UI/KillButton.hide()
 	$CanvasLayer/UI/KillButton.disabled = false
 
@@ -124,11 +139,17 @@ func _on_peer_connected(id):
 	rpc("_spawn_remote_player", id, pos)
 
 	# Wait until everyone is spawned
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(3.0).timeout
 
-	# Automatically assign roles when there are 2 or more players
-	if players.get_child_count() >= 2:
-		start_game()
+	print("Players Connected:", players.get_child_count(), "/", REQUIRED_PLAYERS)
+
+	if !game_started and players.get_child_count() == REQUIRED_PLAYERS:
+
+		game_started = true
+
+	print("All players joined. Starting game...")
+
+	start_game()
 
 
 func _on_peer_disconnected(id):
@@ -214,6 +235,10 @@ func _server_kill_player(peer_id:int):
 	print("Killed:", peer_id)
 
 	rpc("_kill_player", peer_id)
+
+	await get_tree().create_timer(0.2).timeout
+
+	check_game_over()
 @rpc("authority","call_local","reliable")
 func _kill_player(peer_id:int):
 
@@ -223,13 +248,83 @@ func _kill_player(peer_id:int):
 	var victim = players.get_node(str(peer_id))
 	kill_sound.stream = KILL_SOUND
 	kill_sound.play()
+	# Show kill image
+	await show_kill_screen()
+
+# Hide the killed player
+	victim.is_dead = true
 	victim.visible = false
 	victim.set_process(false)
 	victim.set_physics_process(false)
 	
 	print(peer_id, "is dead")
+	if multiplayer.is_server():
+		check_game_over()
 
+func show_victory():
+	print("VICTORY FUNCTION CALLED")
+	get_tree().paused = true
 
+	$CanvasLayer/UI/VictoryScreen.show()
+
+	victory_sound.stream = VICTORY_SOUND
+	victory_sound.play()
+
+	await victory_sound.finished
+
+	$CanvasLayer/UI/VictoryScreen.hide()
+
+	get_tree().paused = false
+func show_defeat():
+
+	get_tree().paused = true
+
+	$CanvasLayer/UI/DefeatScreen.show()
+
+	defeat_sound.stream = DEFEAT_SOUND
+	defeat_sound.play()
+
+	await defeat_sound.finished
+
+	$CanvasLayer/UI/DefeatScreen.hide()
+
+	get_tree().paused = false
+func check_game_over():
+	print("CHECK GAME OVER CALLED")
+	
+	
+	if !multiplayer.is_server():
+		return
+
+	var alive_crewmates := 0
+	var alive_impostors := 0
+
+	for p in players.get_children():
+		print(p.name, " Role =", p.role, " Dead =", p.is_dead)
+		if p.is_dead:
+			continue
+
+		if p.role == p.Role.CREWMATE:
+			alive_crewmates += 1
+		else:
+			alive_impostors += 1
+
+	print("Alive Crewmates:", alive_crewmates)
+	print("Alive Impostors:", alive_impostors)
+
+	if alive_crewmates == 0:
+		rpc("_game_over", "IMPOSTOR")
+@rpc("authority","call_local","reliable")
+func _game_over(winner:String):
+
+	var me = players.get_node(str(multiplayer.get_unique_id()))
+
+	if winner == "IMPOSTOR":
+
+		if me.role == me.Role.IMPOSTOR:
+			await show_victory()
+		else:
+			await show_defeat()
 func _on_kill_button_pressed():
 	print("KILL BUTTON PRESSED")
 	try_kill()
