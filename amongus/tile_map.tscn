@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://cvely1df1ec73" path="res://icon.svg" id="19_cxhyb"]
 [ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
+[ext_resource type="AudioStream" uid="uid://gvj8bvekuxdk" path="res://assets/Role.mp3" id="22_g2lfc"]
+[ext_resource type="AudioStream" uid="uid://cxcg0sng0apud" path="res://Kill.mp3" id="23_2sfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -140,6 +142,26 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_g2lfc")
+
+[node name="KillVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1489035176]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MeetingVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1524825254]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VictoryVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1506374440]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DefeatVideo" type="VideoStreamPlayer" parent="CanvasLayer/UI/RolePopup" unique_id=1248821424]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="KillButton" type="Button" parent="CanvasLayer/UI" unique_id=1702517989]
 visible = false
@@ -385,6 +407,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("18_l1e5b")
 
 [node name="Panel" type="PanelContainer" parent="HUD/UI" unique_id=702145079]
@@ -455,6 +478,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.006447723, 0.021125726, 0.019767245, 1)
 
 [node name="MiniMap" type="Node2D" parent="MapUI" unique_id=168675680]
@@ -477,6 +501,12 @@ scale = Vector2(0.05, 0.05)
 
 [node name="GameManager" type="Node" parent="." unique_id=569229339]
 script = ExtResource("16_gkke7")
+
+[node name="RoleSound" type="AudioStreamPlayer2D" parent="." unique_id=2054503598]
+stream = ExtResource("22_g2lfc")
+
+[node name="KillSound" type="AudioStreamPlayer2D" parent="." unique_id=1096873190]
+stream = ExtResource("23_2sfib")
 
 [connection signal="pressed" from="CanvasLayer/UI/KillButton" to="." method="_on_kill_button_pressed"]
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]

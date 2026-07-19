@@ -1,25 +1,40 @@
 extends Node2D
 
 const PLAYER_SCENE := preload("res://Player.tscn")
-
+@onready var role_sound = $RoleSound
+@onready var kill_sound = $KillSound
+const ROLE = preload("res://assets/Role.mp3")
+const KILL_SOUND = preload("res://assets/Kill.mp3")
 @onready var players := $Players
 func show_role_popup(role:String):
 
+	var popup = $CanvasLayer/UI/RolePopup
+	var crew = popup.get_node("TextureRect")
+	var imp = popup.get_node("TextureRect2")
+
 	print("SHOWING ROLE POPUP:", role)
 
-	var popup = $CanvasLayer/UI/RolePopup
-	var image = popup.get_node("TextureRect")
+	# Hide both first
+	crew.hide()
+	imp.hide()
 
 	if role == "IMPOSTOR":
-		image.texture = load("res://assets/Imposter.PNG")
+		imp.show()
+		role_sound.stream = ROLE
 	else:
-		image.texture = load("res://assets/Crewmates.PNG")
-
+		crew.show()
+		role_sound.stream = ROLE
+	
 	popup.show()
+	role_sound.play()
 
 	await get_tree().create_timer(3.0).timeout
 
 	popup.hide()
+
+	# Hide both after popup disappears
+	crew.hide()
+	imp.hide()
 func start_game():
 
 	if !multiplayer.is_server():
@@ -45,12 +60,11 @@ func start_game():
 		else:
 			rpc_id(id, "_set_role", "CREWMATE")
 @rpc("authority", "call_local", "reliable")
-func _set_role(role_name:String):
+func _set_role(role_name: String):
 
 	print("I am:", role_name)
 
 	var player = players.get_node_or_null(str(multiplayer.get_unique_id()))
-
 	if player == null:
 		print("Player not found!")
 		return
@@ -64,33 +78,28 @@ func _set_role(role_name:String):
 
 	print("KillButton visible:", $CanvasLayer/UI/KillButton.visible)
 
-	# TEMPORARILY DISABLED
-	# show_role_popup(role_name)
+	# Show the role popup
+	show_role_popup(role_name)
+	print(
+	"My ID:", multiplayer.get_unique_id(),
+	"  Received role:", role_name
+)
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		print("Mouse click detected")
 func _ready():
-	
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	print("Ready")
 
-	# Hide popup
 	$CanvasLayer/UI/RolePopup.hide()
+	$CanvasLayer/UI/RolePopup/TextureRect.hide()
+	$CanvasLayer/UI/RolePopup/TextureRect2.hide()
 
-	# Force show KillButton
-	$CanvasLayer/UI/KillButton.show()
+	$CanvasLayer/UI/KillButton.hide()
 	$CanvasLayer/UI/KillButton.disabled = false
 
-	print("Button global position: ", $CanvasLayer/UI/KillButton.global_position)
-	print("Button size: ", $CanvasLayer/UI/KillButton.size)
-	print("Button visible: ", $CanvasLayer/UI/KillButton.visible)
+	# rest of your code...
 
-	# Test mouse
-	$CanvasLayer/UI/KillButton.mouse_entered.connect(func():
-		print("ENTER BUTTON")
-	)
-
-	# Connect networking
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
@@ -98,8 +107,6 @@ func _ready():
 
 	if multiplayer.is_server():
 		_spawn_player(multiplayer.get_unique_id())
-	print("RolePopup mouse filter:", $CanvasLayer/UI/RolePopup.mouse_filter)
-	print("ColorRect mouse filter:", $CanvasLayer/UI/RolePopup/ColorRect.mouse_filter)
 func _on_peer_connected(id):
 	print("Peer connected:", id)
 
@@ -178,11 +185,7 @@ func _remove_remote_player(peer_id:int):
 		players.get_node(str(peer_id)).queue_free()
 
 
-func _on_start_button_pressed():
-	if multiplayer.is_server():
-		start_game()
-	else:
-		print("Only the host can start the game")
+
 
 	
 func try_kill():
@@ -218,11 +221,12 @@ func _kill_player(peer_id:int):
 		return
 
 	var victim = players.get_node(str(peer_id))
-
+	kill_sound.stream = KILL_SOUND
+	kill_sound.play()
 	victim.visible = false
 	victim.set_process(false)
 	victim.set_physics_process(false)
-
+	
 	print(peer_id, "is dead")
 
 
