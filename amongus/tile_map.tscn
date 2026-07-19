@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://cvely1df1ec73" path="res://icon.svg" id="19_cxhyb"]
 [ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
-[ext_resource type="Texture2D" path="res://assets/red.PNG" id="22_2sfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -82,7 +81,26 @@ autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1443904264]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1263634478]
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1156698050]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RolePopup" type="Control" parent="CanvasLayer/UI" unique_id=1517072877]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI/RolePopup" unique_id=1263634478]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -91,32 +109,52 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.78039217)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=227827774]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/RolePopup" unique_id=227827774]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -227.5
+offset_top = -262.0
+offset_right = 227.5
+offset_bottom = 262.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_2sfib")
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer" unique_id=1178295591]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UI/RolePopup" unique_id=1178295591]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -367.5
+offset_top = -241.0
+offset_right = 367.5
+offset_bottom = 241.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("4_g2lfc")
 
-[node name="StartButton" type="Button" parent="CanvasLayer" unique_id=809856152]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -48.0
-offset_right = 48.0
-offset_bottom = 31.0
-grow_horizontal = 2
-text = "Start Game"
+[node name="KillButton" type="Button" parent="CanvasLayer/UI" unique_id=1702517989]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -70.0
+offset_right = -20.0
+offset_bottom = -20.0
+text = "KILL"
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
 position = Vector2(3.9999962, -3.9999695)
@@ -436,12 +474,11 @@ texture = ExtResource("21_g2lfc")
 
 [node name="TargetMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=915467833]
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("22_2sfib")
 
 [node name="GameManager" type="Node" parent="." unique_id=569229339]
 script = ExtResource("16_gkke7")
 
-[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/KillButton" to="." method="_on_kill_button_pressed"]
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Communication" to="Rooms/Communication" method="_on_body_entered"]
