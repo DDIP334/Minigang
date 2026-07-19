@@ -227,54 +227,53 @@ func try_kill():
 			rpc_id(1, "_server_kill_player", int(p.name))
 			return
 @rpc("any_peer","call_local","reliable")
+
 func _server_kill_player(peer_id:int):
 
 	if !multiplayer.is_server():
-		return
+		check_game_over()
 
 	print("Killed:", peer_id)
 
 	rpc("_kill_player", peer_id)
-
-	await get_tree().create_timer(0.2).timeout
-
-	check_game_over()
 @rpc("authority","call_local","reliable")
 func _kill_player(peer_id:int):
 
+	print("KILL PLAYER RPC RECEIVED")
+
 	if !players.has_node(str(peer_id)):
+		print("VICTIM NOT FOUND")
 		return
 
 	var victim = players.get_node(str(peer_id))
+
+	print("KILLING:", victim.name)
+
 	kill_sound.stream = KILL_SOUND
 	kill_sound.play()
-	# Show kill image
+
 	await show_kill_screen()
 
-# Hide the killed player
 	victim.is_dead = true
 	victim.visible = false
 	victim.set_process(false)
 	victim.set_physics_process(false)
-	
-	print(peer_id, "is dead")
+
+	print("DEAD STATUS:", victim.is_dead)
+
 	if multiplayer.is_server():
+		print("SERVER CALLING CHECK")
 		check_game_over()
 
 func show_victory():
-	print("VICTORY FUNCTION CALLED")
-	get_tree().paused = true
 
-	$CanvasLayer/UI/VictoryScreen.show()
+	print("========== VICTORY FUNCTION ==========")
 
-	victory_sound.stream = VICTORY_SOUND
-	victory_sound.play()
+	$CanvasLayer/UI/VictoryScreen.visible = true
 
-	await victory_sound.finished
-
-	$CanvasLayer/UI/VictoryScreen.hide()
-
-	get_tree().paused = false
+	print("Victory Visible:",
+		$CanvasLayer/UI/VictoryScreen.visible
+	)
 func show_defeat():
 
 	get_tree().paused = true
@@ -290,41 +289,83 @@ func show_defeat():
 
 	get_tree().paused = false
 func check_game_over():
-	print("CHECK GAME OVER CALLED")
-	
-	
+
+	print("===== CHECK GAME OVER =====")
+
 	if !multiplayer.is_server():
+		print("NOT SERVER")
 		return
 
-	var alive_crewmates := 0
-	var alive_impostors := 0
+
+	var alive_crewmates = 0
+	var alive_impostors = 0
+
 
 	for p in players.get_children():
-		print(p.name, " Role =", p.role, " Dead =", p.is_dead)
+
+		print(
+			"Player:",
+			p.name,
+			" Role:",
+			p.role,
+			" Dead:",
+			p.is_dead
+		)
+
 		if p.is_dead:
 			continue
+
 
 		if p.role == p.Role.CREWMATE:
 			alive_crewmates += 1
 		else:
 			alive_impostors += 1
 
-	print("Alive Crewmates:", alive_crewmates)
-	print("Alive Impostors:", alive_impostors)
+
+	print("Crew:", alive_crewmates)
+	print("Imp:", alive_impostors)
+
 
 	if alive_crewmates == 0:
-		rpc("_game_over", "IMPOSTOR")
+
+		print("IMPOSTOR WIN CONDITION")
+		rpc("_game_over","IMPOSTOR")
 @rpc("authority","call_local","reliable")
 func _game_over(winner:String):
 
-	var me = players.get_node(str(multiplayer.get_unique_id()))
+	print("===== GAME OVER RPC =====")
+	print("Winner:", winner)
+
+
+	var me = players.get_node_or_null(str(multiplayer.get_unique_id()))
+
+
+	if me == null:
+		print("PLAYER NOT FOUND")
+		return
+
+
+	print("My role:", me.role)
+
 
 	if winner == "IMPOSTOR":
 
 		if me.role == me.Role.IMPOSTOR:
-			await show_victory()
+			print("CALLING VICTORY")
+			show_victory()
+
 		else:
-			await show_defeat()
+			print("CALLING DEFEAT")
+			show_defeat()
+@rpc("authority", "call_local", "reliable")
+func _crewmates_win():
+
+	var me = players.get_node(str(multiplayer.get_unique_id()))
+
+	if me.role == me.Role.CREWMATE:
+		await show_victory()
+	else:
+		await show_defeat()
 func _on_kill_button_pressed():
 	print("KILL BUTTON PRESSED")
 	try_kill()

@@ -22,6 +22,7 @@ var task_queue = []
 var completed_tasks := 0
 
 @onready var hud = $"../HUD"
+@onready var tile_map = get_parent()
 
 func _ready():
 	await get_tree().process_frame
@@ -61,7 +62,20 @@ func complete_task():
 
 	update_hud()
 
+	check_all_tasks_completed()
+
 
 func update_hud():
 
 	hud.update_ui(task_queue, completed_tasks, tasks_per_game)
+func check_all_tasks_completed():
+
+	if completed_tasks < tasks_per_game:
+		return
+
+	print("ALL TASKS COMPLETED!")
+
+	if multiplayer.is_server():
+		get_parent().rpc("_crewmates_win")
+	else:
+		get_parent().rpc_id(1, "_request_crewmate_win")
