@@ -6,6 +6,12 @@ const SPEED := 460.0
 @onready var footsteps: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var camera: Camera2D = $Camera2D
 
+enum Role {
+	CREWMATE,
+	IMPOSTOR
+}
+
+var role : Role = Role.CREWMATE
 func _ready():
 	camera.enabled = is_multiplayer_authority()
 

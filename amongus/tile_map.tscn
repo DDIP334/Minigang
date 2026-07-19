@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://c322qdfuyectb" path="res://assets/Map.png" id="1_7yhko"]
 [ext_resource type="Script" uid="uid://cwjg2oimu04k5" path="res://tile_map.gd" id="1_8mkqx"]
 [ext_resource type="AudioStream" uid="uid://br5crlsj7yqo7" path="res://assets/audiopapkin-spaceship-hum-low-frequency-296518.mp3" id="2_xftlc"]
+[ext_resource type="Texture2D" uid="uid://c1lkkqtd7xxqu" path="res://assets/Imposter.PNG" id="4_g2lfc"]
+[ext_resource type="Texture2D" uid="uid://cpltic62bds7d" path="res://assets/Crewmates.PNG" id="5_2sfib"]
 [ext_resource type="Script" uid="uid://cbepo0u6otxam" path="res://electrical.gd" id="6_anah5"]
 [ext_resource type="Script" uid="uid://urp65151e68" path="res://storage.gd" id="7_qtlnl"]
 [ext_resource type="Script" uid="uid://dw1mn72knatvs" path="res://communication.gd" id="8_2cfip"]
@@ -19,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cvely1df1ec73" path="res://icon.svg" id="19_cxhyb"]
 [ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
-[ext_resource type="Texture2D" uid="uid://dh0kqvsuxdi78" path="res://assets/red.PNG" id="22_2sfib"]
+[ext_resource type="Texture2D" path="res://assets/red.PNG" id="22_2sfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -77,6 +79,44 @@ texture = ExtResource("1_7yhko")
 stream = ExtResource("2_xftlc")
 volume_db = -1.0
 autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1443904264]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1263634478]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.78039217)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=227827774]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_2sfib")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer" unique_id=1178295591]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_g2lfc")
+
+[node name="StartButton" type="Button" parent="CanvasLayer" unique_id=809856152]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_right = 48.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Start Game"
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
 position = Vector2(3.9999962, -3.9999695)
@@ -401,6 +441,7 @@ texture = ExtResource("22_2sfib")
 [node name="GameManager" type="Node" parent="." unique_id=569229339]
 script = ExtResource("16_gkke7")
 
+[connection signal="pressed" from="CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Communication" to="Rooms/Communication" method="_on_body_entered"]
