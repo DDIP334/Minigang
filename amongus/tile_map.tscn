@@ -526,7 +526,7 @@ color = Color(0.006447723, 0.021125726, 0.019767245, 1)
 [node name="MiniMap" type="Node2D" parent="MapUI" unique_id=168675680]
 
 [node name="MapSprite" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1559751827]
-modulate = Color(0.13333334, 0.13333334, 0.13333334, 0.5176471)
+modulate = Color(0.13333334, 0.13333334, 0.13333334, 0.7058824)
 position = Vector2(575, 324)
 texture = ExtResource("23_g5f3g")
 
