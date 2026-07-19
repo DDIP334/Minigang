@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cfw74luedf6d1"]
+
+[ext_resource type="Texture2D" uid="uid://c32rkk3662rrs" path="res://assets/Team.png" id="1_e4jhe"]
+[ext_resource type="Script" uid="uid://domx5rygroice" path="res://main_menu.gd" id="1_xb2xv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xb2xv"]
+bg_color = Color(0.32453185, 0.27824938, 0.032642227, 0.6627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hdr6"]
+bg_color = Color(0.8510756, 0.9012205, 0.9596283, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dnh7"]
+bg_color = Color(0.0024066188, 0.049434647, 0.11430567, 1)
+
+[node name="Node2D" type="Node2D" unique_id=1584781496]
+
+[node name="MainMenu" type="Control" parent="." unique_id=212269694]
+custom_maximum_size = Vector2(10, -1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xb2xv")
+
+[node name="Background" type="TextureRect" parent="MainMenu" unique_id=1560764624]
+layout_mode = 0
+offset_left = -35.0
+offset_top = 11.0
+offset_right = 1372.0
+offset_bottom = 779.0
+texture = ExtResource("1_e4jhe")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="MainMenu" unique_id=1709260909]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.003921569, 0, 0.047058824, 1)
+
+[node name="Menu" type="VBoxContainer" parent="MainMenu" unique_id=60626013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 437.0
+offset_right = 402.0
+offset_bottom = 837.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="MainMenu/Menu" unique_id=319197090]
+layout_mode = 2
+theme_override_colors/font_color = Color(1.347661e-06, 0.9976495, 0.99609095, 1)
+theme_override_colors/font_focus_color = Color(0.83974105, 0.99818057, 0.8654924, 1)
+theme_override_colors/font_pressed_color = Color(0.35166058, 0.9951958, 0.48204082, 1)
+theme_override_colors/font_hover_color = Color(0.91456765, 0.34829736, 0.45720786, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_xb2xv")
+text = "Host Game"
+text_overrun_behavior = 3
+
+[node name="JoinButton" type="Button" parent="MainMenu/Menu" unique_id=126483145]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.97683555, 0.25657943, 0.5391627, 1)
+theme_override_colors/font_hover_color = Color(0.6865626, 0.9417637, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7hdr6")
+text = "Join Game"
+
+[node name="IPInput" type="LineEdit" parent="MainMenu/Menu" unique_id=869518750]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9904184, 0.8486486, 0.68250656, 1)
+theme_override_colors/font_placeholder_color = Color(0.30119884, 0.9673553, 0.28399563, 0.6)
+placeholder_text = "Enter Host IP"
+
+[node name="StatusLabel" type="Label" parent="MainMenu/Menu" unique_id=210251828]
+layout_mode = 2
+text = "Not Connected"
+
+[node name="SettingButton" type="Button" parent="MainMenu/Menu" unique_id=1207478281]
+layout_mode = 2
+text = "Setting"
+
+[node name="ExitButton" type="Button" parent="MainMenu/Menu" unique_id=1109649556]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.0627451, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_2dnh7")
+text = "Exit"
+
+[connection signal="pressed" from="MainMenu/Menu/HostButton" to="MainMenu" method="_on_host_button_pressed"]
+[connection signal="pressed" from="MainMenu/Menu/JoinButton" to="MainMenu" method="_on_join_button_pressed"]

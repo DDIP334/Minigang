@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Amongus"
-run/main_scene="uid://cb28hry66m104"
+run/main_scene="uid://cfw74luedf6d1"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkManager="*uid://dlvsrsh01b3xm"
 
 [input]
 

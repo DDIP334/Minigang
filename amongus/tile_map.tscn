@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://cb28hry66m104"]
 
 [ext_resource type="Texture2D" uid="uid://c322qdfuyectb" path="res://assets/Map.png" id="1_7yhko"]
+[ext_resource type="Script" uid="uid://cwjg2oimu04k5" path="res://tile_map.gd" id="1_8mkqx"]
 [ext_resource type="AudioStream" uid="uid://br5crlsj7yqo7" path="res://assets/audiopapkin-spaceship-hum-low-frequency-296518.mp3" id="2_xftlc"]
-[ext_resource type="Texture2D" uid="uid://ctydncqojriw0" path="res://assets/Character.png" id="3_03na7"]
-[ext_resource type="Script" uid="uid://bh2qd28ixx3ku" path="res://assets/controller.gd" id="3_35kre"]
-[ext_resource type="AudioStream" uid="uid://oj6mx4bcn1us" path="res://assets/517fd7b7-2c37-4495-81d9-f3e9617faee4.mp3" id="4_03na7"]
 [ext_resource type="Script" uid="uid://cbepo0u6otxam" path="res://electrical.gd" id="6_anah5"]
 [ext_resource type="Script" uid="uid://urp65151e68" path="res://storage.gd" id="7_qtlnl"]
 [ext_resource type="Script" uid="uid://dw1mn72knatvs" path="res://communication.gd" id="8_2cfip"]
@@ -21,129 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://cvely1df1ec73" path="res://icon.svg" id="19_cxhyb"]
 [ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
-[ext_resource type="Texture2D" uid="uid://brob0xhq5jron" path="res://assets/red.PNG" id="22_2sfib"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1n30v"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_35kre"]
-atlas = ExtResource("3_03na7")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_03na7"]
-atlas = ExtResource("3_03na7")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xftlc"]
-atlas = ExtResource("3_03na7")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_anah5"]
-atlas = ExtResource("3_03na7")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qtlnl"]
-atlas = ExtResource("3_03na7")
-region = Rect2(128, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2cfip"]
-atlas = ExtResource("3_03na7")
-region = Rect2(160, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sqirv"]
-atlas = ExtResource("3_03na7")
-region = Rect2(192, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c81vo"]
-atlas = ExtResource("3_03na7")
-region = Rect2(224, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i6cpi"]
-atlas = ExtResource("3_03na7")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s20o0"]
-atlas = ExtResource("3_03na7")
-region = Rect2(32, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_47trr"]
-atlas = ExtResource("3_03na7")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mvv3g"]
-atlas = ExtResource("3_03na7")
-region = Rect2(96, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8jdh"]
-atlas = ExtResource("3_03na7")
-region = Rect2(128, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gkke7"]
-atlas = ExtResource("3_03na7")
-region = Rect2(160, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4snpw"]
-atlas = ExtResource("3_03na7")
-region = Rect2(192, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l1e5b"]
-atlas = ExtResource("3_03na7")
-region = Rect2(224, 96, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8mkqx"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_35kre")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_03na7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xftlc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_anah5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qtlnl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2cfip")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sqirv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c81vo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i6cpi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s20o0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_47trr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mvv3g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k8jdh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gkke7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4snpw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l1e5b")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 9.6
-}]
+[ext_resource type="Texture2D" uid="uid://dh0kqvsuxdi78" path="res://assets/red.PNG" id="22_2sfib"]
+[ext_resource type="Script" uid="uid://dlvsrsh01b3xm" path="res://network_manager.gd" id="23_2sfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -190,6 +67,9 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="Node2D" type="Node2D" unique_id=1709466047]
+script = ExtResource("1_8mkqx")
+
+[node name="Players" type="Node2D" parent="." unique_id=816456137]
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
 position = Vector2(3.9999962, -3.9999695)
@@ -316,24 +196,6 @@ texture = ExtResource("1_7yhko")
 stream = ExtResource("2_xftlc")
 volume_db = -1.0
 autoplay = true
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=792922069 groups=["Player"]]
-script = ExtResource("3_35kre")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1785094148]
-shape = SubResource("CapsuleShape2D_1n30v")
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=184909975]
-position = Vector2(-2, 4)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=669626173]
-scale = Vector2(6, 6)
-sprite_frames = SubResource("SpriteFrames_8mkqx")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1216921772]
-stream = ExtResource("4_03na7")
-volume_db = 16.178
-pitch_scale = 0.87
 
 [node name="Rooms" type="Node2D" parent="." unique_id=733124816]
 
@@ -539,6 +401,13 @@ texture = ExtResource("21_g2lfc")
 [node name="TargetMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=915467833]
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("22_2sfib")
+
+[node name="NetworkManager" type="Node" parent="." unique_id=844068673]
+script = ExtResource("23_2sfib")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1529806092]
+_spawnable_scenes = PackedStringArray("uid://4fpvsu6m61ox")
+spawn_path = NodePath("../Players")
 
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
