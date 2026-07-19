@@ -84,9 +84,11 @@ func _set_role(role_name: String):
 
 	if role_name == "IMPOSTOR":
 		player.role = player.Role.IMPOSTOR
+		rpc_id(1, "sync_role", multiplayer.get_unique_id(), player.Role.IMPOSTOR)
 		$CanvasLayer/UI/KillButton.show()
 	else:
 		player.role = player.Role.CREWMATE
+		rpc_id(1, "sync_role", multiplayer.get_unique_id(), player.Role.CREWMATE)
 		$CanvasLayer/UI/KillButton.hide()
 
 	print("KillButton visible:", $CanvasLayer/UI/KillButton.visible)
@@ -97,6 +99,17 @@ func _set_role(role_name: String):
 	"My ID:", multiplayer.get_unique_id(),
 	"  Received role:", role_name
 )
+@rpc("any_peer", "call_local", "reliable")
+func sync_role(player_id: int, role: int):
+	var p = players.get_node_or_null(str(player_id))
+	if p == null:
+		print("Player not found:", player_id)
+		return
+
+	p.role = role
+
+	print("SYNC ROLE:", player_id, " -> ", role)
+	print("SERVER STORED ROLE:", p.role)
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		print("Mouse click detected")

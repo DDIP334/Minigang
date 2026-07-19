@@ -13,7 +13,7 @@ var all_tasks = [
 	{"name":"Inspect Sample","room":"Observation"},
 	{"name":"Start Reactor","room":"Engine"}
 ]
-var current_room = "Storage"
+var current_room : String = ""
 # Queue
 var task_queue = []
 
@@ -42,7 +42,14 @@ func start_new_game():
 
 	update_hud()
 
+func set_current_room(room_name: String):
+	if current_room != room_name:
+		current_room = room_name
+		print("Current Room:", current_room)
 
+		var map = get_parent().get_node("CanvasLayer/MapUI")
+		if map.visible:
+			map.update_map()
 func get_current_task():
 
 	if task_queue.is_empty():
@@ -79,3 +86,16 @@ func check_all_tasks_completed():
 		get_parent().rpc("_crewmates_win")
 	else:
 		get_parent().rpc_id(1, "_request_crewmate_win")
+func update_current_room(player_pos: Vector2):
+
+	if player_pos.x < -1200:
+		current_room = "Engine"
+
+	elif player_pos.x > 1200:
+		current_room = "Electrical"
+
+	elif player_pos.y > 800:
+		current_room = "Storage"
+
+	else:
+		current_room = "Cafeteria"

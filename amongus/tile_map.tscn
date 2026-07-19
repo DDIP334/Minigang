@@ -26,6 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
 [ext_resource type="AudioStream" uid="uid://gvj8bvekuxdk" path="res://assets/Role.mp3" id="22_g2lfc"]
 [ext_resource type="AudioStream" uid="uid://cxcg0sng0apud" path="res://Kill.mp3" id="23_2sfib"]
+[ext_resource type="Texture2D" uid="uid://baexohdjmgxt2" path="res://assets/MiniMap.png" id="23_g5f3g"]
+[ext_resource type="Texture2D" uid="uid://dy4xkej2niqaj" path="res://assets/red.PNG" id="25_i4cc3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -370,7 +372,7 @@ debug_color = Color(0.27588207, 0.6306, 0.12818658, 0.41960785)
 script = ExtResource("9_sqirv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Cafeteria" unique_id=1770973587]
-position = Vector2(-10.5, -1134)
+position = Vector2(-41, -1109)
 shape = SubResource("RectangleShape2D_c81vo")
 debug_color = Color(0.1540713, 0.6282413, 0.4276861, 0.41960785)
 
@@ -524,20 +526,23 @@ color = Color(0.006447723, 0.021125726, 0.019767245, 1)
 [node name="MiniMap" type="Node2D" parent="MapUI" unique_id=168675680]
 
 [node name="MapSprite" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1559751827]
+modulate = Color(0.13333334, 0.13333334, 0.13333334, 0.5176471)
 position = Vector2(575, 324)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_7yhko")
+texture = ExtResource("23_g5f3g")
 
 [node name="Line2D" type="Line2D" parent="MapUI/MiniMap" unique_id=969087304]
 width = 6.0
 default_color = Color(0.83137256, 0.3019608, 0, 1)
 
 [node name="PlayerMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1821396918]
-scale = Vector2(0.05, 0.05)
+position = Vector2(261.75, 116.75)
+scale = Vector2(0.04381446, 0.091584116)
 texture = ExtResource("21_g2lfc")
 
 [node name="TargetMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=915467833]
-scale = Vector2(0.05, 0.05)
+position = Vector2(567.5692, 101.71282)
+scale = Vector2(-0.035386793, 0.06559236)
+texture = ExtResource("25_i4cc3")
 
 [node name="GameManager" type="Node" parent="." unique_id=569229339]
 script = ExtResource("16_gkke7")
