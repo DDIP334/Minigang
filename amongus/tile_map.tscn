@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://cc0sxlrlgbl7e" path="res://map_ui.gd" id="20_jsnob"]
 [ext_resource type="Texture2D" uid="uid://bc2fr8q6bw350" path="res://assets/green.PNG" id="21_g2lfc"]
 [ext_resource type="Texture2D" uid="uid://dh0kqvsuxdi78" path="res://assets/red.PNG" id="22_2sfib"]
-[ext_resource type="Script" uid="uid://dlvsrsh01b3xm" path="res://network_manager.gd" id="23_2sfib"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr80c"]
 size = Vector2(809, 749)
@@ -69,7 +68,15 @@ corner_radius_bottom_left = 4
 [node name="Node2D" type="Node2D" unique_id=1709466047]
 script = ExtResource("1_8mkqx")
 
-[node name="Players" type="Node2D" parent="." unique_id=816456137]
+[node name="Main" type="Sprite2D" parent="." unique_id=1083044925]
+position = Vector2(-3.9999962, -6.9999924)
+scale = Vector2(4.101563, 3.6865234)
+texture = ExtResource("1_7yhko")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" unique_id=916696572]
+stream = ExtResource("2_xftlc")
+volume_db = -1.0
+autoplay = true
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=227120344]
 position = Vector2(3.9999962, -3.9999695)
@@ -187,16 +194,6 @@ position = Vector2(-164.02936, -38.237106)
 scale = Vector2(1.3403605, 1.1318902)
 polygon = PackedVector2Array(467.87042, 286.44876, 468.60187, 262.0355, 486.39996, 259.3229, 488.10663, 293.77274)
 
-[node name="Main" type="Sprite2D" parent="." unique_id=1083044925]
-position = Vector2(-3.9999962, -6.9999924)
-scale = Vector2(4.101563, 3.6865234)
-texture = ExtResource("1_7yhko")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main" unique_id=916696572]
-stream = ExtResource("2_xftlc")
-volume_db = -1.0
-autoplay = true
-
 [node name="Rooms" type="Node2D" parent="." unique_id=733124816]
 
 [node name="Electrical" type="Area2D" parent="Rooms" unique_id=1952671140]
@@ -298,8 +295,7 @@ shape = SubResource("RectangleShape2D_q1kn7")
 
 [node name="MapPoint" type="Marker2D" parent="Rooms/UpperEngine" unique_id=2025957368]
 
-[node name="GameManager" type="Node" parent="." unique_id=569229339]
-script = ExtResource("16_gkke7")
+[node name="Players" type="Node2D" parent="." unique_id=816456137]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=420314083]
 script = ExtResource("17_4snpw")
@@ -402,12 +398,8 @@ texture = ExtResource("21_g2lfc")
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("22_2sfib")
 
-[node name="NetworkManager" type="Node" parent="." unique_id=844068673]
-script = ExtResource("23_2sfib")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1529806092]
-_spawnable_scenes = PackedStringArray("uid://4fpvsu6m61ox")
-spawn_path = NodePath("../Players")
+[node name="GameManager" type="Node" parent="." unique_id=569229339]
+script = ExtResource("16_gkke7")
 
 [connection signal="body_entered" from="Rooms/Electrical" to="Rooms/Electrical" method="_on_body_entered"]
 [connection signal="body_entered" from="Rooms/Storage" to="Rooms/Storage" method="_on_body_entered"]
