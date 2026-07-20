@@ -11,7 +11,7 @@ func _on_body_entered(body):
 	# Only the local player can open the task
 	if !body.is_multiplayer_authority():
 		return
-
+	game_manager.set_current_room("Cafateria")
 	# Impostor cannot perform tasks
 	if body.role == body.Role.IMPOSTOR:
 		print("Impostor cannot do tasks!")

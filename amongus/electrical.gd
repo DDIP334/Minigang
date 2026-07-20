@@ -15,7 +15,7 @@ func _on_body_entered(body):
 	# Only the local player should open tasks
 	if !body.is_multiplayer_authority():
 		return
-
+	game_manager.set_current_room("Electrical")
 	# Prevent impostors from doing tasks
 	if body.role == body.Role.IMPOSTOR:
 		print("Impostor cannot do tasks!")

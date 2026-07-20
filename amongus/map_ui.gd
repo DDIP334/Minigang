@@ -96,22 +96,7 @@ func _input(event):
 func _process(delta):
 	if visible:
 		update_map()
-func get_current_room_from_position(player_pos: Vector2) -> String:
 
-	var nearest_room := ""
-	var min_distance := INF
-
-	for room in rooms.get_children():
-
-		var point = room.get_node("MapPoint")
-
-		var d = player_pos.distance_to(point.global_position)
-
-		if d < min_distance:
-			min_distance = d
-			nearest_room = room.name
-
-	return nearest_room
 func update_map():
 
 	var task = game_manager.get_current_task()
@@ -119,13 +104,19 @@ func update_map():
 	if task == null:
 		return
 
-	# Get the local player
-	var player = $"../Players".get_node(str(multiplayer.get_unique_id()))
+	# Get current room from GameManager
+	var current_room = game_manager.current_room
 
-	# Find the current room automatically
-	var current_room = get_current_room_from_position(player.global_position)
+	# Safety check
+	if !minimap_points.has(current_room):
+		print("Unknown current room:", current_room)
+		return
 
-	# Update marker positions
+	if !minimap_points.has(task["room"]):
+		print("Unknown target room:", task["room"])
+		return
+
+	# Update markers
 	player_marker.position = minimap_points[current_room]
 	target_marker.position = minimap_points[task["room"]]
 
@@ -138,4 +129,5 @@ func update_map():
 		line.add_point(minimap_points[room])
 
 	print("Current Room:", current_room)
+	print("Target Room:", task["room"])
 	print("Path:", path)

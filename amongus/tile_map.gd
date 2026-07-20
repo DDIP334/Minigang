@@ -280,13 +280,20 @@ func _kill_player(peer_id:int):
 
 func show_victory():
 
-	print("========== VICTORY FUNCTION ==========")
+	print("========== VICTORY ==========")
 
-	$CanvasLayer/UI/VictoryScreen.visible = true
+	get_tree().paused = true
 
-	print("Victory Visible:",
-		$CanvasLayer/UI/VictoryScreen.visible
-	)
+	$CanvasLayer/UI/VictoryScreen.show()
+
+	victory_sound.stream = VICTORY_SOUND
+	victory_sound.play()
+
+	await victory_sound.finished
+
+	$CanvasLayer/UI/VictoryScreen.hide()
+
+	get_tree().paused = false
 func show_defeat():
 
 	get_tree().paused = true
@@ -370,14 +377,33 @@ func _game_over(winner:String):
 		else:
 			print("CALLING DEFEAT")
 			show_defeat()
+@rpc("any_peer", "reliable")
+func _request_crewmate_win():
+
+	if !multiplayer.is_server():
+		return
+
+	print("SERVER RECEIVED CREWMATE WIN REQUEST")
+
+	# Tell EVERYONE that crewmates won
+	rpc("_crewmates_win")
 @rpc("authority", "call_local", "reliable")
 func _crewmates_win():
 
-	var me = players.get_node(str(multiplayer.get_unique_id()))
+	print("===== CREWMATE WIN RPC =====")
+	print("Peer:", multiplayer.get_unique_id())
+
+	var me = players.get_node_or_null(str(multiplayer.get_unique_id()))
+
+	if me == null:
+		print("Player not found!")
+		return
 
 	if me.role == me.Role.CREWMATE:
+		print("SHOW VICTORY")
 		await show_victory()
 	else:
+		print("SHOW DEFEAT")
 		await show_defeat()
 func _on_kill_button_pressed():
 	print("KILL BUTTON PRESSED")

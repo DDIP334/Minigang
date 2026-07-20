@@ -535,12 +535,12 @@ width = 6.0
 default_color = Color(0.83137256, 0.3019608, 0, 1)
 
 [node name="PlayerMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=1821396918]
-position = Vector2(261.75, 116.75)
-scale = Vector2(0.04381446, 0.091584116)
+position = Vector2(654.031, 428.9)
+scale = Vector2(0.123392016, 0.12970297)
 texture = ExtResource("21_g2lfc")
 
 [node name="TargetMarker" type="Sprite2D" parent="MapUI/MiniMap" unique_id=915467833]
-position = Vector2(567.5692, 101.71282)
+position = Vector2(678, 445)
 scale = Vector2(-0.035386793, 0.06559236)
 texture = ExtResource("25_i4cc3")
 
